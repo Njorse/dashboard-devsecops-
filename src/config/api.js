@@ -1,0 +1,3 @@
+export const AWS_ACCESS_KEY_ID = "AKIAIOSFODNN7EXAMPLE"
+export const AWS_SECRET_ACCESS_KEY = "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+export const STRIPE_SECRET_KEY = "sk_live_51NxVulnerableKey_LiveMode_D3vS3c0p5_Pipeline_1234567890ABCDEF"
