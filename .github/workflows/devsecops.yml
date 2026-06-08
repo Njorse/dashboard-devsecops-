@@ -65,11 +65,11 @@ jobs:
         uses: tsickert/discord-webhook@v6.0.0
         with:
           webhook-url: ${{ secrets.DISCORD_WEBHOOK }}
-          embed-title: "DevSecOps Pipeline Result"
+          embed-title: "Reporte de Seguridad DevSecOps"
           embed-description: |
-            Pipeline status: ${{ needs.sca.result == 'success' && needs.sast.result == 'success' && 'PASSED' || 'FAILED' }}
-            SCA: ${{ needs.sca.result }}
-            SAST: ${{ needs.sast.result }}
+            Estado del Despliegue: ${{ needs.sca.result == 'success' && needs.sast.result == 'success' && 'APROBADO' || 'BLOQUEADO' }}
+            Revisión SCA (Librerías): ${{ needs.sca.result == 'success' && 'Limpio' || 'Peligro' }}
+            Revisión SAST (Contraseñas): ${{ needs.sast.result == 'success' && 'Limpio' || 'Credenciales Expuestas' }}
           embed-color: ${{ needs.sca.result == 'success' && needs.sast.result == 'success' && 5763719 || 15548997 }}
 
   deploy:
