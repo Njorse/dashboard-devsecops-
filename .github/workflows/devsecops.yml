@@ -54,6 +54,7 @@ jobs:
           path: ./
           base: ""
           head: ""
+          extra_args: --only-verified=false
 
   notify:
     needs: [sca, sast]
