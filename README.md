@@ -1,18 +1,21 @@
-# React + Vite
+# Dashboard Financiero - DevSecOps Pipeline
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[![DevSecOps Pipeline](https://github.com/Njorse/dashboard-devsecops-/actions/workflows/devsecops.yml/badge.svg)](https://github.com/Njorse/dashboard-devsecops-/actions/workflows/devsecops.yml)
+[![CodeQL](https://github.com/Njorse/dashboard-devsecops-/actions/workflows/codeql.yml/badge.svg)](https://github.com/Njorse/dashboard-devsecops-/actions/workflows/codeql.yml)
 
-Currently, two official plugins are available:
+Dashboard financiero con pipeline DevSecOps completo: analisis de seguridad estatico, escaneo de dependencias, pruebas automatizadas y despliegue continuo.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Pipeline
 
-## React Compiler
+| Etapa | Herramienta | Proposito |
+|---|---|---|
+| Lint | ESLint | Calidad de codigo |
+| Test | Vitest | Pruebas unitarias |
+| SCA | Snyk + npm audit | Vulnerabilidades en dependencias |
+| SAST | TruffleHog | Credenciales expuestas |
+| SAST | CodeQL | Analisis estatico de seguridad |
+| Deploy | GitHub Pages | Publicacion automatica |
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Demo
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-
-Prueba de integración de Webhook.
+Sitio en vivo: https://njorse.github.io/dashboard-devsecops-/
