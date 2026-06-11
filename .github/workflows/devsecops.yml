@@ -75,7 +75,6 @@ jobs:
           embed-color: ${{ needs.sca.result == 'success' && needs.sast.result == 'success' && 5763719 || 15548997 }}
 
   deploy:
-    needs: [sca, sast]
     runs-on: ubuntu-latest
     permissions:
       contents: write
