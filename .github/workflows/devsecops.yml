@@ -91,8 +91,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: TruffleHog Secrets Scan
         uses: trufflesecurity/trufflehog@main
@@ -100,7 +98,7 @@ jobs:
           path: ./
           base: ""
           head: ""
-          extra_args: --only-verified=false --exclude-paths=.trufflehogignore
+          extra_args: --only-verified=false
 
   notify:
     needs: [sca, sast]
