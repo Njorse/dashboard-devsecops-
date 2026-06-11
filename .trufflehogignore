@@ -1,0 +1,5 @@
+# Ignorar archivos que suelen tener falsos positivos
+package-lock.json
+*.min.js
+*.min.css
+node_modules/

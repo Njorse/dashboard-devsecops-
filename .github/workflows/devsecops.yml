@@ -100,7 +100,7 @@ jobs:
           path: ./
           base: ""
           head: ""
-          extra_args: --only-verified=false
+          extra_args: --only-verified=false --exclude-paths=.trufflehogignore
 
   notify:
     needs: [sca, sast]
