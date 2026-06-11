@@ -1,3 +1,11 @@
+const navItems = [
+  { label: "Dashboard", icon: "◈", active: true },
+  { label: "Ingresos", icon: "↑" },
+  { label: "Gastos", icon: "↓" },
+  { label: "Reportes", icon: "☰" },
+  { label: "Configuración", icon: "⚙" },
+]
+
 function App() {
   const ingresos = [
     { id: 1, concepto: "Ventas Online", monto: 12500 },
@@ -16,101 +24,129 @@ function App() {
   const balance = totalIngresos - totalGastos
 
   return (
-    <div className="min-h-screen font-['Inter',sans-serif] bg-gradient-to-br from-indigo-950 via-purple-950 to-slate-950">
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-violet-600/20 rounded-full blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-fuchsia-600/15 rounded-full blur-3xl" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-600/10 rounded-full blur-3xl" />
-      </div>
-
-      <header className="relative border-b border-white/10 bg-white/5 backdrop-blur-xl sticky top-0 z-50">
-        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-          <h1 className="text-xl font-extrabold bg-gradient-to-r from-amber-200 via-yellow-300 to-amber-400 bg-clip-text text-transparent tracking-tight">
-            Dashboard Financiero
+    <div className="min-h-screen font-['Inter',sans-serif] flex bg-gray-950">
+      <aside className="w-64 shrink-0 border-r border-gray-800 bg-gray-900/50 backdrop-blur-xl flex flex-col">
+        <div className="px-6 py-6 border-b border-gray-800">
+          <h1 className="text-lg font-extrabold text-white tracking-tight">
+            Finance<span className="text-sky-400">Pro</span>
           </h1>
-          <span className="text-sm text-white/40 font-medium">Q2 2026</span>
-        </div>
-      </header>
-
-      <main className="relative max-w-6xl mx-auto px-6 py-10">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-          <div className="group bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 p-6 shadow-lg hover:shadow-2xl hover:scale-[1.02] hover:bg-white/10 transition-all duration-300">
-            <p className="text-sm font-medium text-emerald-300/80 mb-1 flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              Ingresos Totales
-            </p>
-            <p className="text-3xl font-extrabold text-emerald-300 tracking-tight">
-              ${totalIngresos.toLocaleString()}
-            </p>
-          </div>
-
-          <div className="group bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 p-6 shadow-lg hover:shadow-2xl hover:scale-[1.02] hover:bg-white/10 transition-all duration-300">
-            <p className="text-sm font-medium text-rose-300/80 mb-1 flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-rose-400 animate-pulse" />
-              Gastos Totales
-            </p>
-            <p className="text-3xl font-extrabold text-rose-300 tracking-tight">
-              ${totalGastos.toLocaleString()}
-            </p>
-          </div>
-
-          <div className="group bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 p-6 shadow-lg hover:shadow-2xl hover:scale-[1.02] hover:bg-white/10 transition-all duration-300">
-            <p className="text-sm font-medium text-sky-300/80 mb-1 flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-sky-400 animate-pulse" />
-              Balance Neto
-            </p>
-            <p className={`text-3xl font-extrabold tracking-tight ${balance >= 0 ? "text-sky-300" : "text-rose-300"}`}>
-              ${balance.toLocaleString()}
-            </p>
-          </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <section>
-            <h2 className="text-lg font-bold text-white/70 mb-5 flex items-center gap-2">
-              <span className="text-emerald-400">◆</span>
-              Ingresos
-            </h2>
-            <div className="space-y-3">
-              {ingresos.map((item) => (
-                <div
-                  key={item.id}
-                  className="group flex justify-between items-center bg-white/5 backdrop-blur-lg border border-white/10 rounded-xl px-5 py-4 hover:bg-white/10 hover:border-emerald-500/30 hover:shadow-lg hover:shadow-emerald-500/5 transition-all duration-300"
-                >
-                  <span className="font-medium text-white/80 group-hover:text-white transition-colors">
-                    {item.concepto}
-                  </span>
-                  <span className="font-bold font-['Inter',sans-serif] text-emerald-300 tabular-nums">
-                    ${item.monto.toLocaleString()}
-                  </span>
-                </div>
-              ))}
+        <nav className="flex-1 px-3 py-4 space-y-1">
+          {navItems.map((item) => (
+            <button
+              key={item.label}
+              className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${
+                item.active
+                  ? "bg-gray-800 text-white shadow-lg shadow-gray-900/50"
+                  : "text-gray-500 hover:text-gray-300 hover:bg-gray-800/50"
+              }`}
+            >
+              <span className="text-base">{item.icon}</span>
+              {item.label}
+            </button>
+          ))}
+        </nav>
+
+        <div className="px-6 py-5 border-t border-gray-800">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-sky-400 to-blue-500 flex items-center justify-center text-xs font-bold text-white">
+              JD
             </div>
-          </section>
-
-          <section>
-            <h2 className="text-lg font-bold text-white/70 mb-5 flex items-center gap-2">
-              <span className="text-rose-400">◆</span>
-              Gastos
-            </h2>
-            <div className="space-y-3">
-              {gastos.map((item) => (
-                <div
-                  key={item.id}
-                  className="group flex justify-between items-center bg-white/5 backdrop-blur-lg border border-white/10 rounded-xl px-5 py-4 hover:bg-white/10 hover:border-rose-500/30 hover:shadow-lg hover:shadow-rose-500/5 transition-all duration-300"
-                >
-                  <span className="font-medium text-white/80 group-hover:text-white transition-colors">
-                    {item.concepto}
-                  </span>
-                  <span className="font-bold font-['Inter',sans-serif] text-rose-300 tabular-nums">
-                    ${item.monto.toLocaleString()}
-                  </span>
-                </div>
-              ))}
+            <div className="text-sm">
+              <p className="text-gray-300 font-medium">Juan Pérez</p>
+              <p className="text-gray-600 text-xs">Admin</p>
             </div>
-          </section>
+          </div>
         </div>
-      </main>
+      </aside>
+
+      <div className="flex-1 flex flex-col min-h-screen">
+        <header className="border-b border-gray-800 bg-gray-950/80 backdrop-blur-xl sticky top-0 z-50">
+          <div className="px-8 py-4 flex items-center justify-between">
+            <h2 className="text-lg font-bold text-white">
+              Dashboard
+            </h2>
+            <span className="text-sm text-gray-500 font-medium">Q2 2026</span>
+          </div>
+        </header>
+
+        <main className="flex-1 px-8 py-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+            <div className="bg-gray-900 border border-gray-800 rounded-2xl p-6 hover:border-emerald-500/30 hover:shadow-lg hover:shadow-emerald-500/5 transition-all duration-300">
+              <p className="text-sm font-medium text-gray-500 mb-1 flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                Ingresos Totales
+              </p>
+              <p className="text-3xl font-extrabold text-emerald-400 tracking-tight">
+                ${totalIngresos.toLocaleString()}
+              </p>
+            </div>
+
+            <div className="bg-gray-900 border border-gray-800 rounded-2xl p-6 hover:border-rose-500/30 hover:shadow-lg hover:shadow-rose-500/5 transition-all duration-300">
+              <p className="text-sm font-medium text-gray-500 mb-1 flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-rose-400" />
+                Gastos Totales
+              </p>
+              <p className="text-3xl font-extrabold text-rose-400 tracking-tight">
+                ${totalGastos.toLocaleString()}
+              </p>
+            </div>
+
+            <div className="bg-gray-900 border border-gray-800 rounded-2xl p-6 hover:border-sky-500/30 hover:shadow-lg hover:shadow-sky-500/5 transition-all duration-300">
+              <p className="text-sm font-medium text-gray-500 mb-1 flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-sky-400" />
+                Balance Neto
+              </p>
+              <p className={`text-3xl font-extrabold tracking-tight ${balance >= 0 ? "text-sky-400" : "text-rose-400"}`}>
+                ${balance.toLocaleString()}
+              </p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <section>
+              <h2 className="text-base font-semibold text-gray-400 mb-4 flex items-center gap-2">
+                <span className="w-1 h-5 rounded-full bg-emerald-400" />
+                Ingresos
+              </h2>
+              <div className="space-y-2">
+                {ingresos.map((item) => (
+                  <div
+                    key={item.id}
+                    className="flex justify-between items-center bg-gray-900 border border-gray-800 rounded-xl px-5 py-4 hover:border-emerald-500/20 hover:bg-gray-800/50 transition-all duration-200"
+                  >
+                    <span className="text-gray-300">{item.concepto}</span>
+                    <span className="font-bold text-emerald-400 tabular-nums">
+                      ${item.monto.toLocaleString()}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            <section>
+              <h2 className="text-base font-semibold text-gray-400 mb-4 flex items-center gap-2">
+                <span className="w-1 h-5 rounded-full bg-rose-400" />
+                Gastos
+              </h2>
+              <div className="space-y-2">
+                {gastos.map((item) => (
+                  <div
+                    key={item.id}
+                    className="flex justify-between items-center bg-gray-900 border border-gray-800 rounded-xl px-5 py-4 hover:border-rose-500/20 hover:bg-gray-800/50 transition-all duration-200"
+                  >
+                    <span className="text-gray-300">{item.concepto}</span>
+                    <span className="font-bold text-rose-400 tabular-nums">
+                      ${item.monto.toLocaleString()}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </section>
+          </div>
+        </main>
+      </div>
     </div>
   )
 }
