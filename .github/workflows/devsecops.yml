@@ -119,8 +119,6 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -140,18 +138,7 @@ jobs:
         run: npm run build
 
       - name: Deploy to GitHub Pages
-        run: |
-          echo "=== Remote URL ==="
-          git remote -v
-          echo "=== Git auth check ==="
-          git ls-remote origin gh-pages
-          echo "=== Deploy ==="
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git checkout --orphan gh-pages-temp
-          cp -r dist/* .
-          git add -A
-          git commit -m "deploy: ${{ github.sha }}"
-          echo "=== Pushing ==="
-          git push origin gh-pages-temp:gh-pages --force
-          echo "=== Done ==="
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
