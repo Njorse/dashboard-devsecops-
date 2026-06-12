@@ -108,7 +108,7 @@ jobs:
     if: always()
     steps:
       - name: Alerta de Fallo
-        if: failure()
+        if: ${{ contains(needs.*.result, 'failure') }}
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         run: |
@@ -118,7 +118,7 @@ jobs:
             $DISCORD_WEBHOOK
 
       - name: Notificación de Éxito
-        if: success()
+        if: ${{ !contains(needs.*.result, 'failure') && !contains(needs.*.result, 'cancelled') }}
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         run: |
