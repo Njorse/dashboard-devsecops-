@@ -103,7 +103,7 @@ jobs:
           extra_args: --results=verified,unknown
 
   notify:
-    needs: [sca, sast]
+    needs: [setup, lint, test, sca, sast]
     runs-on: ubuntu-latest
     if: always()
     steps:
@@ -113,10 +113,12 @@ jobs:
           webhook-url: ${{ secrets.DISCORD_WEBHOOK }}
           embed-title: "Reporte de Seguridad DevSecOps"
           embed-description: |
-            Estado del Despliegue: ${{ needs.sca.result == 'success' && needs.sast.result == 'success' && 'APROBADO' || 'BLOQUEADO' }}
-            Revision SCA (Librerias): ${{ needs.sca.result == 'success' && 'Limpio' || 'Peligro' }}
-            Revision SAST (Contrasenas): ${{ needs.sast.result == 'success' && 'Limpio' || 'Credenciales Expuestas' }}
-          embed-color: ${{ needs.sca.result == 'success' && needs.sast.result == 'success' && 5763719 || 15548997 }}
+            Estado del Pipeline: ${{ needs.setup.result == 'success' && needs.lint.result == 'success' && needs.test.result == 'success' && needs.sca.result == 'success' && needs.sast.result == 'success' && 'APROBADO' || 'BLOQUEADO' }}
+            Lint: ${{ needs.lint.result == 'success' && 'Limpio' || needs.lint.result == 'skipped' && 'Omitido' || 'Fallido' }}
+            Test: ${{ needs.test.result == 'success' && 'Limpio' || needs.test.result == 'skipped' && 'Omitido' || 'Fallido' }}
+            SCA (Librerias): ${{ needs.sca.result == 'success' && 'Limpio' || 'Vulnerabilidades Detectadas' }}
+            SAST (Secretos): ${{ needs.sast.result == 'success' && 'Limpio' || 'Credenciales Expuestas' }}
+          embed-color: ${{ needs.setup.result == 'success' && needs.lint.result == 'success' && needs.test.result == 'success' && needs.sca.result == 'success' && needs.sast.result == 'success' && 5763719 || 15548997 }}
 
   deploy:
     needs: [sca, sast]
