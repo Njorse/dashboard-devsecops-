@@ -137,6 +137,17 @@ jobs:
           VITE_GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
         run: npm run build
 
+      - name: Debug - test auth
+        run: |
+          set -x
+          echo "PWD: $(pwd)"
+          ls -la dist/ | head -5
+          echo "=== git auth test ==="
+          git ls-remote origin gh-pages 2>&1 || echo "ls-remote FAILED"
+          echo "=== git push test ==="
+          echo "test" > /tmp/testfile
+          echo "All debug steps completed"
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
