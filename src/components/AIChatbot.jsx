@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react"
 
 const GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions"
-const MODEL = "llama3-8b-8192"
+const MODEL = "llama-3.1-8b-instant"
 // GROQ_API_KEY inyectada via VITE_GROQ_API_KEY en build de GitHub Actions
 
 function AIChatbot() {
