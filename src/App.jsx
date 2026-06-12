@@ -1,3 +1,5 @@
+const STRIPE_SECRET_KEY = "sk_test_51NxVulnerableKey_DiscordAlert_1234567890ABCDEF"
+
 import AIChatbot from "./components/AIChatbot"
 
 const navItems = [
