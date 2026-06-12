@@ -88,10 +88,11 @@ jobs:
   sast:
     needs: setup
     runs-on: ubuntu-latest
-    continue-on-error: true
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: TruffleHog Secrets Scan
         uses: trufflesecurity/trufflehog@main
@@ -99,7 +100,7 @@ jobs:
           path: ./
           base: ""
           head: ""
-          extra_args: --only-verified=false
+          extra_args: --results=verified,unknown
 
   notify:
     needs: [sca, sast]
@@ -118,6 +119,7 @@ jobs:
           embed-color: ${{ needs.sca.result == 'success' && needs.sast.result == 'success' && 5763719 || 15548997 }}
 
   deploy:
+    needs: [sca, sast]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
