@@ -107,15 +107,25 @@ jobs:
     runs-on: ubuntu-latest
     if: always()
     steps:
-      - name: Send Discord notification
-        uses: tsickert/discord-webhook@v6.0.0
-        with:
-          webhook-url: ${{ secrets.DISCORD_WEBHOOK }}
-          embed-title: ${{ needs.sast.result == 'failure' && '❌ DESPLIEGUE BLOQUEADO POR SEGURIDAD' || '✅ DESPLIEGUE EXITOSO' }}
-          embed-description: |
-            ${{ needs.sast.result == 'failure' && '⚠️ El motor DevSecOps detectó credenciales expuestas o vulnerabilidades.\n\n🔧 Solución: Revisa el código, elimina llaves hardcodeadas (API Keys) y vuelve a intentar.' || '✅ El código pasó las pruebas de seguridad y ha sido publicado en producción.' }}
-            ${{ needs.sast.result == 'failure' && format('\n\n📋 Log: {0}/{1}/actions/runs/{2}', github.server_url, github.repository, github.run_id) || '' }}
-          embed-color: ${{ needs.setup.result == 'success' && needs.lint.result == 'success' && needs.test.result == 'success' && needs.sca.result == 'success' && needs.sast.result == 'success' && 5763719 || 15548997 }}
+      - name: Alerta de Fallo
+        if: failure()
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        run: |
+          curl -H "Content-Type: application/json" \
+            -X POST \
+            -d '{"embeds":[{"title":"❌ DESPLIEGUE BLOQUEADO POR SEGURIDAD","description":"⚠️ El motor detectó credenciales expuestas. Solución: Revisa el código y elimina llaves hardcodeadas.","color":15548997}]}' \
+            $DISCORD_WEBHOOK
+
+      - name: Notificación de Éxito
+        if: success()
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        run: |
+          curl -H "Content-Type: application/json" \
+            -X POST \
+            -d '{"embeds":[{"title":"✅ DESPLIEGUE EXITOSO","description":"El código pasó las pruebas de seguridad.","color":5763719}]}' \
+            $DISCORD_WEBHOOK
 
   deploy:
     needs: [sca, sast]
