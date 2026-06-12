@@ -62,13 +62,13 @@ function AIChatbot() {
   return (
     <>
       {open && (
-        <div className="fixed bottom-24 right-6 w-80 sm:w-96 h-[500px] bg-gray-900 border border-gray-700 rounded-2xl shadow-2xl shadow-black/60 flex flex-col z-50 overflow-hidden">
-          <div className="flex items-center justify-between px-4 py-3 border-b border-gray-700 bg-gray-800">
+        <div className="fixed bottom-24 right-6 w-80 sm:w-96 h-[500px] bg-gray-950 border border-gray-800 rounded-2xl shadow-2xl shadow-black/60 flex flex-col z-50 overflow-hidden">
+          <div className="flex items-center justify-between px-4 py-3 border-b border-gray-800 bg-black">
             <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
               <span className="text-sm font-semibold text-white">Asesor Financiero IA</span>
             </div>
-            <button onClick={() => setOpen(false)} className="text-gray-400 hover:text-white text-lg leading-none">&times;</button>
+            <button onClick={() => setOpen(false)} className="text-gray-500 hover:text-white text-lg leading-none">&times;</button>
           </div>
 
           <div className="flex-1 overflow-y-auto px-4 py-3 space-y-3">
@@ -77,8 +77,8 @@ function AIChatbot() {
                 <div
                   className={`max-w-[80%] rounded-xl px-4 py-2.5 text-sm leading-relaxed ${
                     msg.role === "user"
-                      ? "bg-sky-600 text-white rounded-br-md"
-                      : "bg-gray-800 text-gray-200 rounded-bl-md"
+                      ? "bg-white text-black rounded-br-md"
+                      : "bg-gray-900 text-gray-200 rounded-bl-md"
                   }`}
                 >
                   {msg.content}
@@ -87,24 +87,24 @@ function AIChatbot() {
             ))}
             {loading && (
               <div className="flex justify-start">
-                <div className="bg-gray-800 text-gray-400 rounded-xl rounded-bl-md px-4 py-2.5 text-sm italic">Escribiendo...</div>
+                <div className="bg-gray-900 text-gray-500 rounded-xl rounded-bl-md px-4 py-2.5 text-sm italic">Escribiendo...</div>
               </div>
             )}
             <div ref={bottomRef} />
           </div>
 
-          <div className="border-t border-gray-700 px-4 py-3 flex gap-2">
+          <div className="border-t border-gray-800 px-4 py-3 flex gap-2">
             <input
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleSend()}
               placeholder="Consulta financiera..."
-              className="flex-1 bg-gray-800 border border-gray-600 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-500 outline-none focus:border-sky-500 transition-colors"
+              className="flex-1 bg-black border border-gray-800 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-600 outline-none focus:border-white transition-colors"
             />
             <button
               onClick={handleSend}
               disabled={loading || !input.trim()}
-              className="bg-sky-600 hover:bg-sky-500 disabled:bg-gray-700 disabled:text-gray-500 text-white rounded-lg px-3 py-2 text-sm font-medium transition-colors"
+              className="bg-white text-black hover:bg-gray-300 disabled:bg-gray-800 disabled:text-gray-600 rounded-lg px-3 py-2 text-sm font-medium transition-colors"
             >
               Enviar
             </button>
@@ -114,7 +114,7 @@ function AIChatbot() {
 
       <button
         onClick={() => setOpen(true)}
-        className="fixed bottom-6 right-6 w-14 h-14 bg-gradient-to-br from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white rounded-full shadow-lg shadow-sky-500/30 flex items-center justify-center text-2xl z-50 transition-all duration-200 hover:scale-105"
+        className="fixed bottom-6 right-6 w-14 h-14 bg-white text-black hover:bg-gray-300 rounded-full shadow-lg flex items-center justify-center text-2xl z-50 transition-all duration-200 hover:scale-105"
         title="Asesor Financiero IA"
       >
         ⌨
