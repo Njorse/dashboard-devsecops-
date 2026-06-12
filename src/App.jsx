@@ -1,3 +1,5 @@
+import AIChatbot from "./components/AIChatbot"
+
 const navItems = [
   { label: "Dashboard", icon: "◈", active: true },
   { label: "Ingresos", icon: "↑" },
@@ -24,6 +26,7 @@ function App() {
   const balance = totalIngresos - totalGastos
 
   return (
+    <>
     <div className="min-h-screen font-['Inter',sans-serif] flex bg-gray-950">
       <aside className="w-64 shrink-0 border-r border-gray-800 bg-gray-900/50 backdrop-blur-xl flex flex-col">
         <div className="px-6 py-6 border-b border-gray-800">
@@ -148,6 +151,8 @@ function App() {
         </main>
       </div>
     </div>
+      <AIChatbot />
+    </>
   )
 }
 
