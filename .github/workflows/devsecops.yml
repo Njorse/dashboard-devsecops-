@@ -138,7 +138,12 @@ jobs:
         run: npm run build
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git fetch origin gh-pages 2>/dev/null || true
+          git checkout gh-pages 2>/dev/null || git checkout --orphan gh-pages
+          rsync -av --delete dist/ . --exclude=.git
+          git add -A
+          git commit -m "deploy: ${{ github.sha }}" || echo "no changes to commit"
+          git push origin gh-pages 2>&1
